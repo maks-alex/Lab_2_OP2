@@ -1,0 +1,2 @@
+D:\My documents\Git\Lab_2_OP2\Lab_2_OP2\Debug\Lab_2_OP2.exe
+D:\My documents\Git\Lab_2_OP2\Lab_2_OP2\Debug\Lab_2_OP2.pdb

@@ -1,20 +1,68 @@
-// Lab_2_OP2.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+#include <Windows.h>
+#include <filesystem>
+
+using namespace std;
+
+void creating_list_of_students();
+//void sorting(string* name, float* rating, bool* result, int sum);
+//void vuvid(string* name, float* rating, bool* result, int number_of_students);
+
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+
+	creating_list_of_students();
+	return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void creating_list_of_students()
+{
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+	namespace fs = filesystem;
+	string dir;
+	string extension = ".csv";
+	int group_num,
+		stud_num = 0;
+
+	cout << "enter files directory:" << endl;
+	cin >> dir;
+
+	for (auto& p : fs::directory_iterator(dir)) // Для всех файлов в папке
+	{
+		if (!fs::is_regular_file(p.status()))	// Пропускаем, если это не простой файл, а папка или что-то другое
+			continue;
+
+		if (p.path().extension().string() == extension) // Выбираем файлы с расширением .csv
+		{
+			ifstream inf(p.path());
+
+			if (!inf.is_open())							// Проверяемость корректность работы потока
+			{
+				cerr << "some troubles with file" << endl;
+				exit(1);
+			}
+			inf >> group_num;
+			stud_num = stud_num + static_cast<int>(group_num);
+
+			inf.seekg(4);
+			while (inf)
+			{
+
+				// То перемещаем эти данные в строку, которую затем выводим на экран
+				string strInput;
+				getline(inf, strInput);
+				cout << strInput << endl;
+			}
+
+		}
+
+	}
+
+}
