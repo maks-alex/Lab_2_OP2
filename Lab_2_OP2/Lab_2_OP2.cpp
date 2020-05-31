@@ -7,9 +7,7 @@
 
 using namespace std;
 
-void creating_list_of_students();
-//void sorting(string* name, float* rating, bool* result, int sum);
-//void vuvid(string* name, float* rating, bool* result, int number_of_students);
+void extracting_list_of_students();
 
 
 
@@ -18,11 +16,11 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	creating_list_of_students();
+	extracting_list_of_students();
 	return 0;
 }
 
-void creating_list_of_students()
+void extracting_list_of_students()
 {
 
 	namespace fs = filesystem;
@@ -55,7 +53,7 @@ void creating_list_of_students()
 			while (inf)
 			{
 
-				// То перемещаем эти данные в строку, которую затем выводим на экран
+														// То перемещаем эти данные в строку, которую затем выводим на экран
 				string strInput;
 				getline(inf, strInput);
 				cout << strInput << endl;
