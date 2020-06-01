@@ -4,11 +4,11 @@
 #include <iomanip>
 #include <Windows.h>
 #include <filesystem>
+//#include <vector>
 
 using namespace std;
 
-void extracting_list_of_students();
-
+void input_data();
 
 
 int main()
@@ -16,18 +16,19 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	extracting_list_of_students();
+	input_data();
+
+
+	//delete "database.csv"
 	return 0;
 }
 
-void extracting_list_of_students()
+void input_data()
 {
-
 	namespace fs = filesystem;
 	string dir;
 	string extension = ".csv";
-	int group_num,
-		stud_num = 0;
+	int group_num;
 
 	cout << "enter files directory:" << endl;
 	cin >> dir;
@@ -41,22 +42,38 @@ void extracting_list_of_students()
 		{
 			ifstream inf(p.path());
 
-			if (!inf.is_open())							// Проверяемость корректность работы потока
+			if (!inf.is_open())							// Проверяем корректность работы потока
 			{
 				cerr << "some troubles with file" << endl;
 				exit(1);
 			}
 			inf >> group_num;
-			stud_num = stud_num + static_cast<int>(group_num);
 
-			inf.seekg(4);
-			while (inf)
+			string student;
+			string str;
+			for (int i = 0; i < group_num; i++)
 			{
+				getline(inf, student, ',');
+				float mark = 0;
+				for (int j = 0; j < 5; j++)
+				{
+					getline(inf, str, ',');
+					mark = mark + stoi(str);
+				}
+				mark = mark / 5;
+				getline(inf, str);
+				if (str == "FALSE")
+				{
+					ofstream outf("database.csv", ios::app);
 
-														// То перемещаем эти данные в строку, которую затем выводим на экран
-				string strInput;
-				getline(inf, strInput);
-				cout << strInput << endl;
+					if (!outf)									// Если файл не открыт
+					{
+						cerr << "ofstream trouble" << endl;
+						exit(1);
+					}
+					outf << student << "," << fixed << setprecision(3) << mark << endl;
+				}
+
 			}
 
 		}
