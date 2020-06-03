@@ -1,2 +1,4 @@
 ﻿  Lab_2_OP2.cpp
+D:\My documents\Git\Lab_2_OP2\Lab_2_OP2\Lab_2_OP2.cpp(82,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\My documents\Git\Lab_2_OP2\Lab_2_OP2\Lab_2_OP2.cpp(98,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   Lab_2_OP2.vcxproj -> D:\My documents\Git\Lab_2_OP2\Lab_2_OP2\Debug\Lab_2_OP2.exe
